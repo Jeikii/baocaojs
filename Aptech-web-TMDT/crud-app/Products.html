@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quản lý sản phẩm</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="../css/creat-product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+   
+
+    <!-- Form để tạo sản phẩm mới -->
+    <form id="create-form">
+        <h1><i class="fas fa-plus"></i> Quản lý sản phẩm</h1>
+        <label for="name">Tên :</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="price">Giá:</label>
+        <input type="number" id="price" name="price" required>
+
+        <label for="description">Mô tả:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="image">hình ảnh:</label>
+        <input type="text" id="image" name="image" required>
+
+        <button type="submit"><i class="fas fa-plus"></i> Tạo sản phẩm mới</button>
+    </form>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

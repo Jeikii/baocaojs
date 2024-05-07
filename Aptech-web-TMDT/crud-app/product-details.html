@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm</title><!-- Liên kết đến tệp CSS của bạn -->
+</head>
+
+<body>
+    <div id="product-details">
+        <!-- Thông tin chi tiết sản phẩm sẽ được chèn vào đây -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+    // Lấy ID sản phẩm từ URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    if (productId) {
+        try {
+            // Gửi yêu cầu GET để lấy thông tin chi tiết sản phẩm
+            const response = await fetch(`http://localhost:5000/products/${productId}`);
+            if (!response.ok) {
+                throw new Error('Không thể lấy thông tin sản phẩm.');
+            }
+
+            // Lấy dữ liệu sản phẩm từ phản hồi
+            const product = await response.json();
+
+            // Lấy phần tử HTML để hiển thị thông tin chi tiết sản phẩm
+            const productDetailsContainer = document.getElementById('product-details');
+
+            // Hiển thị thông tin chi tiết sản phẩm
+            productDetailsContainer.innerHTML = `
+            <div class="col-md-6">
+						<div id="product-main-view">
+							<div class="product-view">
+								<img src="${product.image}" alt="${product.name}">
+							</div>
+						</div>
+					</div>
+            <div class="product-body">
+							<div class="product-label">
+								<span>New</span>
+								<span class="sale">-20%</span>
+							</div>
+							<h2 class="product-name">${product.name}</h2>
+							<h3 class="product-price">${product.price}</h3>
+							<div>
+								<div class="product-rating">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o empty"></i>
+								</div>
+								<a href="#">3 Review(s) / Add Review</a>
+							</div>
+							<p><strong>Availability:</strong> In Stock</p>
+							<p><strong>Brand:</strong> E-SHOP</p>
+							<p>${product.description}</p>
+							<div class="product-options">
+								<ul class="size-option">
+									<li><span class="text-uppercase">Size:</span></li>
+									<li class="active"><a href="#">S</a></li>
+									<li><a href="#">XL</a></li>
+									<li><a href="#">SL</a></li>
+								</ul>
+								<ul class="color-option">
+									<li><span class="text-uppercase">Color:</span></li>
+									<li class="active"><a href="#" style="background-color:#475984;"></a></li>
+									<li><a href="#" style="background-color:#8A2454;"></a></li>
+									<li><a href="#" style="background-color:#BF6989;"></a></li>
+									<li><a href="#" style="background-color:#9A54D8;"></a></li>
+								</ul>
+							</div>
+
+							<div class="product-btns">
+								<div class="qty-input">
+									<span class="text-uppercase">QTY: </span>
+									<input class="input" type="number">
+								</div>
+								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+								<div class="pull-right">
+									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+									<button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
+								</div>
+							</div>
+						</div>
+              
+                
+            `;
+        } catch (error) {
+            console.error('Đã xảy ra lỗi khi lấy thông tin sản phẩm:', error);
+            alert('Đã xảy ra lỗi khi lấy thông tin sản phẩm. Vui lòng thử lại sau.');
+        }
+    } else {
+        console.error('Không tìm thấy ID sản phẩm trong URL.');
+        alert('Không tìm thấy ID sản phẩm trong URL.');
+    }
+});
+    </script> <!-- Liên kết đến tệp JavaScript của bạn -->
+</body>
+
+</html>

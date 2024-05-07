@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <style>
+        body{
+            margin: 0px;
+            padding: 5px;
+        }
+        .cart-item {
+            display: flex;
+            /* Sử dụng flexbox để sắp xếp các phần tử */
+            justify-content: space-between;
+            /* Tách biệt các phần tử con */
+            align-items: center;
+            /* Căn chỉnh các phần tử con theo chiều dọc */
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            /* Đường viền giữa các sản phẩm */
+            color: rgb(88, 88, 88);
+        }
+
+        /* Định dạng phần tử chứa thông tin sản phẩm */
+        .product-details {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Định dạng hình ảnh sản phẩm */
+        .product-details img {
+            margin-right: 10px;
+            /* Khoảng cách giữa hình ảnh và tên sản phẩm */
+            border-radius: 5px;
+            /* Bo tròn các góc của hình ảnh */
+        }
+
+        /* Định dạng tên sản phẩm */
+        .product-details h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Định dạng thông tin số lượng và giá cả */
+        .product-info {
+            margin-right: 10px;
+            /* Khoảng cách giữa thông tin và nút xóa */
+            display: flex;
+            /* Sử dụng flexbox để sắp xếp các phần tử */
+            flex-direction: column;
+            /* Sắp xếp các phần tử theo chiều dọc */
+            align-items: flex-end;
+            /* Căn chỉnh các phần tử về phía cuối */
+        }
+
+        /* Định dạng nút "Xóa" */
+        button {
+
+            background-color: #e74c3c;
+            /* Màu nền đỏ */
+            color: #fff;
+            /* Màu chữ trắng */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            /* Bo tròn các góc */
+            cursor: pointer;
+            /* Thay đổi con trỏ chuột thành con trỏ tay */
+            transition: background-color 0.3s;
+            /* Thêm hiệu ứng chuyển đổi màu nền */
+        }
+
+        /* Thay đổi màu nền khi nút được hover */
+        button:hover {
+            background-color: #c0392b;
+
+        }
+
+        .cart_item {
+            display: flex;
+            /* Sử dụng flexbox để sắp xếp các phần tử */
+            justify-content: space-between;
+            /* Tách biệt các phần tử con */
+            align-items: center;
+            /* Căn chỉnh các phần tử con theo chiều dọc */
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+            background-color: orange;
+            font-size: 17px;
+            font-weight: bold;
+        } 
+        .sum_cart{
+            width: 99.9%;
+            height: auto;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+   <div class="sum_cart">
+    <div class="cart_item">
+        <div class="product-info">
+            
+            <h4>Tên Sản Phẩm</h4>
+        </div>
+        <div class="product-info">
+           
+            <h4>Hình Ảnh SP</h4>
+        </div>
+        <div class="product-info">
+          
+            <h4>Giá Tiền </h4>
+          
+        </div>
+        <div class="product-info">
+            <h4>Số Lượng</h4>
+        </div>
+        <div class="product-info">
+            <h4>Setting</h4>
+        </div>
+</div>
+<div id="cart-container"> <br>
+    <!-- Thông tin giỏ hàng sẽ được hiển thị ở đây -->
+</div>
+   </div>
+    <br>
+    <button id="checkout-button" onclick="checkoutCart()">Thanh toán</button>
+
+    <script>
+        function displayCart(cart, totalPrice) {
+            // Tìm phần tử container nơi hiển thị giỏ hàng trong HTML
+            const cartContainer = document.getElementById('cart-container');
+            // Xóa nội dung hiện tại trong container
+            cartContainer.innerHTML = '';
+
+            // Kiểm tra xem giỏ hàng có trống không
+            if (!cart.items || cart.items.length === 0) {
+                // Hiển thị thông báo "Giỏ hàng trống"
+                cartContainer.innerHTML = '<p>Giỏ hàng trống.</p>';
+                return;
+            }
+
+            // Lặp qua các mặt hàng trong giỏ hàng và tạo nội dung HTML cho mỗi mặt hàng
+            cart.items.forEach(item => {
+                const product = item.product;
+                const quantity = item.quantity;
+
+                // Tạo nội dung HTML cho mỗi mặt hàng trong giỏ hàng
+                const cartItemHTML = `
+            <div class="cart-item">
+                <div class="product-details">
+                    
+                    <h4>${product.name}</h4>
+                </div>
+                <div class="product-details">
+                   
+                    <img src="${product.image}" alt="${product.name}" width="100">
+                </div>
+                <div class="product-details">
+                  
+                    <span> ${product.price} VND</span>
+                  
+                </div>
+                <div class="product-info">
+                    <span>Số lượng: ${quantity}</span>
+                </div>
+                <button onclick="deleteCartItem('${product._id}')">Xóa</button>
+            </div>
+        `;
+
+                // Thêm nội dung HTML của mỗi mặt hàng vào container
+                cartContainer.insertAdjacentHTML('beforeend', cartItemHTML);
+            });
+
+            // Hiển thị tổng giá trị giỏ hàng
+            const totalPriceHTML = `<p>Tổng giá trị: ${totalPrice} VND</p>`;
+            cartContainer.insertAdjacentHTML('beforeend', totalPriceHTML);
+        }
+        function deleteCartItem(productId) {
+            fetch(`http://localhost:5000/cart/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Gọi lại hàm getCart để cập nhật giao diện giỏ hàng
+                        getCart();
+                    } else {
+                        throw new Error('Không thể xóa sản phẩm khỏi giỏ hàng.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Đã xảy ra lỗi khi xóa sản phẩm khỏi giỏ hàng:', error);
+                    alert('Đã xảy ra lỗi khi xóa sản phẩm khỏi giỏ hàng. Vui lòng thử lại sau.');
+                });
+        }
+
+        // Hàm để thực hiện thanh toán
+        function checkoutCart() {
+            fetch('http://localhost:5000/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Hiển thị thông báo thanh toán thành công
+                        alert('Thanh toán thành công!');
+                        // Chuyển hướng về trang chủ
+                        window.location.href = '../index.html';
+                    } else {
+                        throw new Error('Không thể thực hiện thanh toán.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Đã xảy ra lỗi khi thực hiện thanh toán:', error);
+                    alert('Đã xảy ra lỗi khi thực hiện thanh toán. Vui lòng thử lại sau.');
+                });
+        }
+
+        // Gọi hàm để lấy dữ liệu giỏ hàng và hiển thị
+        function getCart() {
+            fetch('http://localhost:5000/cart')
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Không thể lấy giỏ hàng.');
+                    }
+                })
+                .then(data => {
+                    const cart = data.cart;
+                    const totalPrice = data.totalPrice;
+                    // Hiển thị giỏ hàng và tổng giá trị trong HTML
+                    displayCart(cart, totalPrice);
+                })
+                .catch(error => {
+                    console.error('Lỗi khi lấy giỏ hàng:', error);
+                    alert('Đã xảy ra lỗi khi lấy giỏ hàng. Vui lòng thử lại sau.');
+                });
+        }
+
+        // Gọi hàm để lấy giỏ hàng khi trang tải
+        getCart();
+    </script>
+</body>
+
+</html>

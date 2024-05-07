@@ -1,0 +1,69 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e9ecef;
+}
+.container {
+    max-width: 400px; /* Giới hạn chiều rộng của container */
+    margin: auto; /* Căn giữa container trên trang */
+    padding: 20px; /* Khoảng đệm xung quanh container */
+    border: 1px solid #ddd; /* Đường viền nhẹ nhàng */
+    border-radius: 10px; /* Bo tròn góc */
+    background-color: #f7f7f7; /* Màu nền sáng */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
+}
+
+/* Định kiểu cho tiêu đề h1 */
+.container h1 {
+    font-family: 'Segoe UI', sans-serif; /* Font chữ hiện đại */
+    color: #333; /* Màu chữ sẫm */
+    text-align: center; /* Căn giữa tiêu đề */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+  
+        font-size: 24px;
+        color: #333;
+  
+}
+
+/* Định kiểu cho label */
+.container label {
+    display: block; /* Để các label hiển thị trên dòng riêng */
+    margin-bottom: 5px; /* Khoảng cách giữa label và input */
+    font-weight: 600; /* Làm cho văn bản label đậm hơn một chút */
+    color: #555; /* Màu chữ tối hơn một chút */
+}
+
+/* Định kiểu cho input */
+.container input {
+    width: 350px; /* Chiếm 100% chiều rộng của form */
+    padding: 10px; /* Khoảng đệm bên trong input */
+    margin-bottom: 15px; /* Khoảng cách giữa các input */
+    border: 1px solid #ccc; /* Đường viền nhẹ nhàng */
+    border-radius: 5px; /* Bo tròn góc của input */
+    box-sizing: border-box; /* Để padding không ảnh hưởng đến kích thước input */
+    font-size: 16px; /* Cỡ chữ phù hợp */
+    color: #333; /* Màu chữ */
+}
+
+/* Định kiểu cho button */
+.container button {
+    background-color: #007BFF; /* Màu nền xanh dương */
+    color: white; /* Màu chữ trắng */
+    padding: 10px 15px; /* Khoảng đệm bên trong button */
+    border: none; /* Không có đường viền */
+    border-radius: 5px; /* Bo tròn góc */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    font-size: 16px; /* Cỡ chữ */
+    width: 100%; /* Chiếm 100% chiều rộng của form */
+    font-size: 13px;
+}
+
+/* Thay đổi màu nền button khi hover */
+.container button:hover {
+    background-color: #0056b3; /* Màu xanh dương đậm hơn khi hover */
+}
